@@ -67,11 +67,9 @@ function minimize(attributes) {
 
 function displayCandidateKeys(keys) {
     let result = document.getElementById('result');
-    let container = document.createElement('ul');
-    let li = document.createElement('li');
+    let container = document.createElement(`span`);
+    container.innerHTML = keys.join();
 
     result.innerHTML = '';
-    li.innerHTML = `<span>${keys.join()}</span>`;
-    container.appendChild(li)
     result.appendChild(container);
 }
