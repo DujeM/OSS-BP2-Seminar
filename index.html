@@ -14,7 +14,7 @@
       <div class="flex-col">
         <label for="select-example">Primjer</label>
         <select class="form-input" id="select-example" onchange="loadExample(this.value)">
-          <option>Odaberi primjer</option>
+          <option value="-1">Odaberi primjer</option>
         </select>
       </div>
       <div class="flex-col">
@@ -23,7 +23,8 @@
       </div>
       <div id="dependencies" class="flex-col"></div>
       <div class="flex-row">
-        <button type="button" id="key-button" class="form-btn" onclick="findCandidateKeys()" disabled>Ključ</button>
+        <button type="button" id="fo-button" class="form-btn" onclick="addEmptyDependency()">Dodaj FO</button>
+        <button type="button" id="key-button" class="form-btn" onclick="findPrimaryKeys()" >Ključ</button>
       </div>
       <div id="result" class="flex-row"></div>
   </form>
