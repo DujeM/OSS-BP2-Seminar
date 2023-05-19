@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Baze podataka 2</title>
+    <title>BP2 - Seminarski Rad</title>
     <script src="./db.js"></script>
     <script src="./main.js"></script>
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
+    <h1>BP2 - Seminarski Rad</h1>
     <form id="myForm" class="form-wrapper">
       <div class="flex-col">
         <label for="select-example">Examples</label>
@@ -27,6 +28,7 @@
         <button type="button" id="key-button" class="form-btn" onclick="findPrimaryKeys()" >Primary key</button>
         <button type="button" id="nf-button" class="form-btn" onclick="calculateNormalForms()" >Check NF</button>
         <button type="button" id="decompose-nf-button" class="form-btn" onclick="decomposeThirdNf()" >Decompose 3NF</button>
+        <button type="button" id="decompose-nf-button" class="form-btn" onclick="decomposeBcnf()" >Decompose BCNF</button>
       </div>
       <div id="result" class="flex-col"></div>
   </form>

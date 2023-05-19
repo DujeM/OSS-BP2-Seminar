@@ -11,7 +11,9 @@ let minimalCoverSet = [];
 let derivedFds = [];
 let isRelationInThirdNf = false;
 let isRelationinBcnf = false;
+let failedBcnfDependencies = [];
 let decomposed3nf = [];
+let relationAllAttributes = [];
 
 window.addEventListener("load", init);
 
@@ -79,6 +81,8 @@ function insertResult(res) {
     let container = document.createElement('div');
 	container.innerHTML = res;
     document.getElementById('result').appendChild(container);
+    let result = document.getElementById('result');
+    result.classList.add('border');
 }
 
 function addEmptyDependency() {
@@ -139,6 +143,8 @@ function findPrimaryKeys() {
     let leftSide = Array.from(document.querySelectorAll('[id^="lhs-"]')).map(element => [...element.value.split(',')]);
     let rightSide = Array.from(document.querySelectorAll('[id^="rhs-"]')).map(element => [...element.value.split(',')]);
     let allSubsets = getAllSubsets(allAttributes);
+
+    relationAllAttributes = allAttributes;
 
     allSubsets.forEach(attr => {
         const closure = findClosure(attr, leftSide, rightSide);
@@ -324,6 +330,8 @@ function isPrimeAttribute(val) {
 }
  
 function calculateNormalForms() {
+    reset();
+    findPrimaryKeys();
     document.getElementById('result').innerHTML = "";
     insertResult("Relation is assumed to be in 1NF, each attribute is assumed to contain only one value per row.");
     calculateSecondNf();
@@ -405,7 +413,7 @@ function calculateBcnf() {
     }
 
     let isBncf = true;
-    let failedFds = [];
+    failedBcnfDependencies = [];
 
     for (const i in minimalDependencies) {
         const fd = minimalDependencies[i];
@@ -413,16 +421,17 @@ function calculateBcnf() {
         isBncf = isDependencyInBcnf(fd);
 
         if (!isBncf) {
-            failedFds.push(fd);
+            failedBcnfDependencies.push(fd);
         }
     }
 
-    if (!failedFds.length) {
+    if (!failedBcnfDependencies.length) {
         insertResult("Relation is in BCNF");
-        return;
+        return true;
     }
 
-    insertResult(`Relation is not in BCNF because not all functional dependecies satisfy at least one of the conditions needed for BCNF. \n Failed dependencies: ${failedFds.map(fd => `${fd.lhs.join(', ')} -> ${fd.rhs.join(', ')}`).join("; ")}`);
+    insertResult(`Relation is not in BCNF because not all functional dependecies satisfy at least one of the conditions needed for BCNF. \n Failed dependencies: ${failedBcnfDependencies.map(fd => `${fd.lhs.join(', ')} -> ${fd.rhs.join(', ')}`).join("; ")}`);
+    return false;
 }
 
 function isDependencyInBcnf(fd) {
@@ -434,8 +443,14 @@ function isSubset(first, second) {
 }
 
 function decomposeThirdNf() {
+    calculateNormalForms();
     document.getElementById('result').innerHTML = "";
     let decomposed = [];
+
+    if (isRelationInThirdNf) {
+        insertResult("Relation is already in 3NF.");
+        return;
+    }
 
     for (const i in minimalDependencies) {
         const md = minimalDependencies[i];
@@ -465,4 +480,39 @@ function decomposeThirdNf() {
     });
 
     return decomposed;
+}
+
+function decomposeBcnf() {
+    calculateNormalForms();
+    document.getElementById('result').innerHTML = "";
+    let bcnfRelations = []
+
+    for (let i = 0; i < failedBcnfDependencies.length; i++) {
+        const failedFd = failedBcnfDependencies[i];
+        const newRelation = { relation: [...failedFd.lhs, ...failedFd.rhs], fd: failedFd }
+        bcnfRelations.push(newRelation);
+    }
+
+    for (let i = 0; i < selectedExample.dependencies.length; i++) {
+        const md = selectedExample.dependencies[i];
+
+        if (bcnfRelations.find(b => md.lhs.every(l => b.fd.lhs.includes(l)) && bcnfRelations.find(b => md.rhs.every(r => b.fd.rhs.includes(r))))) {
+            continue;
+        }
+
+        const min = minimalCoverSetSplitRhs.find(min => md.lhs.every(l => min.lhs.includes(l)) && md.rhs.some(r => min.rhs.includes(r)))
+        if (min) {
+            const newRelation = { relation: [...min.lhs, ...min.rhs], fd: min }
+            bcnfRelations.push(newRelation);
+        }
+    }
+
+    insertResult("Decomposing relation into BCNF relations:");
+    bcnfRelations.forEach(d => {
+        insertResult(`Relation: ${d.relation.join(', ')}`);
+        insertResult(`FD(s): ${d.fd.lhs.join(', ')} -> ${d.fd.rhs.join(', ')}`)
+        insertResult("----------------");
+    });
+
+    return bcnfRelations;
 }

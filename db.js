@@ -1,6 +1,6 @@
 const db = [
     {
-        relation: ['A', 'B', 'C', 'D'],
+        relation: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'],
         dependencies: [
             {
                 lhs: ['A'],
@@ -10,14 +10,22 @@ const db = [
                 lhs: ['B'],
                 rhs: ['C']
             },
-             {
-                 lhs: ['C'],
-                 rhs: ['A']
-             }
+            {
+                lhs: ['C'],
+                rhs: ['A']
+            },
+            {
+                lhs: ['D'],
+                rhs: ['E']
+            },
+            {
+                lhs: ['G'],
+                rhs: ['J']
+            }
         ]
     },
     {
-        relation: ['A', 'B', 'C', 'D', 'E'],
+        relation: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'],
         dependencies: [
             {
                 lhs: ['A'],
@@ -25,12 +33,20 @@ const db = [
             },
             {
                 lhs: ['B'],
-                rhs: ['C']
+                rhs: ['C', 'D']
             },
-             {
-                 lhs: ['D'],
-                 rhs: ['E']
-             }
+            {
+                lhs: ['D'],
+                rhs: ['E', 'F']
+            },
+            {
+                lhs: ['D'],
+                rhs: ['E', 'F']
+            },
+            {
+                lhs: ['C', 'D'],
+                rhs: ['j']
+            },
         ]
     },
     {
@@ -54,85 +70,41 @@ const db = [
         }] 
     },
     {
-            relation: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'],
-            dependencies: [{
-                lhs: ['A'],
-                rhs: ['C']
-            },{
-                lhs: ['B'],
-                rhs: ['D']
-            },{
-                lhs: ['A'],
-                rhs: ['E']
-            },{
-                lhs: ['A', 'C'],
-                rhs: ['B']
-            },{
-                lhs: ['D'],
-                rhs: ['A']
-            }] 
+        relation: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'],
+        dependencies: [{
+            lhs: ['A'],
+            rhs: ['C']
+        },{
+            lhs: ['B'],
+            rhs: ['D']
+        },{
+            lhs: ['A'],
+            rhs: ['E']
+        },{
+            lhs: ['A', 'C'],
+            rhs: ['B']
+        },{
+            lhs: ['D'],
+            rhs: ['A']
+        }] 
     },
-    // {
-    //     example: {
-    //         R: "A B C D E F G H I J",
-    //         FO: [{
-    //             lhs: "A B",
-    //             rhs: "D C"
-    //         },{
-    //             lhs: "D",
-    //             rhs: "A"
-    //         },{
-    //             lhs: "C",
-    //             rhs: "I"
-    //         },{
-    //             lhs: "A C",
-    //             rhs: "H"
-    //         },{
-    //             lhs: "D",
-    //             rhs: "J"
-    //         }] 
-    //     } 
-    // },
-    // {
-    //     example: {
-    //         R: "A B C D E F G H I J",
-    //         FO: [{
-    //             lhs: "A",
-    //             rhs: "C"
-    //         },{
-    //             lhs: "B",
-    //             rhs: "D"
-    //         },{
-    //             lhs: "A",
-    //             rhs: "E"
-    //         },{
-    //             lhs: "A C",
-    //             rhs: "B"
-    //         },{
-    //             lhs: "D",
-    //             rhs: "A"
-    //         }] 
-    //     },
-    // },
-    // {
-    //     example: {
-    //         R: "A B C D E F G H I J",
-    //         FO: [{
-    //             lhs: "A",
-    //             rhs: "C"
-    //         },{
-    //             lhs: "B",
-    //             rhs: "D"
-    //         },{
-    //             lhs: "A",
-    //             rhs: "E"
-    //         },{
-    //             lhs: "A C",
-    //             rhs: "B"
-    //         },{
-    //             lhs: "D",
-    //             rhs: "A"
-    //         }] 
-    //     },
-    // }
+    {
+        relation: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'],
+        dependencies: [{
+            lhs: ['B'],
+            rhs: ['C', 'D']
+        },{
+            lhs: ['F'],
+            rhs: ['J']
+        },{
+            lhs: ['G'],
+            rhs: ['H', 'A']
+        },{
+            lhs: ['A', 'C'],
+            rhs: ['B']
+        },{
+            lhs: ['D'],
+            rhs: ['A']
+        }] 
+    }
 ];

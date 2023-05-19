@@ -18,7 +18,7 @@
 
 .form-btn {
     border: none;
-    width: 130px;
+    width: 135px;
     padding: 10px;
     border-radius: 10px;
     background: #0096ff;
@@ -47,4 +47,15 @@
 #result {
     max-width: 500px;
     gap: 10px;
+}
+
+.border {
+    border: 1px solid;
+    padding: 20px;
+    border-radius: 4px;
+}
+
+h1 {
+    text-align: center;
+    font-weight: 400;
 }
