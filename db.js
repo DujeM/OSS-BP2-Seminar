@@ -1,5 +1,22 @@
 const db = [
     {
+        relation: ['A', 'B', 'C', 'D'],
+        dependencies: [
+            {
+                lhs: ['A'],
+                rhs: ['B']
+            },
+            {
+                lhs: ['B'],
+                rhs: ['C']
+            },
+             {
+                 lhs: ['C'],
+                 rhs: ['A']
+             }
+        ]
+    },
+    {
         relation: ['A', 'B', 'C', 'D', 'E'],
         dependencies: [
             {

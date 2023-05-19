@@ -12,21 +12,23 @@
 <body>
     <form id="myForm" class="form-wrapper">
       <div class="flex-col">
-        <label for="select-example">Primjer</label>
+        <label for="select-example">Examples</label>
         <select class="form-input" id="select-example" onchange="loadExample(this.value)">
-          <option value="-1">Odaberi primjer</option>
+          <option value="-1">Empty</option>
         </select>
       </div>
       <div class="flex-col">
-        <label for="relation">Relacija</label>
+        <label for="relation">Relation</label>
         <input class="form-input" type="text" name="relation" id="relation">
       </div>
       <div id="dependencies" class="flex-col"></div>
       <div class="flex-row">
-        <button type="button" id="fo-button" class="form-btn" onclick="addEmptyDependency()">Dodaj FO</button>
-        <button type="button" id="key-button" class="form-btn" onclick="findPrimaryKeys()" >Ključ</button>
+        <button type="button" id="fo-button" class="form-btn" onclick="addEmptyDependency()">Add FD</button>
+        <button type="button" id="key-button" class="form-btn" onclick="findPrimaryKeys()" >Primary key</button>
+        <button type="button" id="nf-button" class="form-btn" onclick="calculateNormalForms()" >Check NF</button>
+        <button type="button" id="decompose-nf-button" class="form-btn" onclick="decomposeThirdNf()" >Decompose 3NF</button>
       </div>
-      <div id="result" class="flex-row"></div>
+      <div id="result" class="flex-col"></div>
   </form>
 </body>
 </html>
